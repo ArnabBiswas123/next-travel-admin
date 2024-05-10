@@ -4,6 +4,8 @@ import { useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/navigation";
 import Alert from "@mui/material/Alert";
+// const fetchURL='http://localhost:5000'
+const fetchURL='https://next-travel-backend-vercel.vercel.app'
 
 export default function Home() {
   const [user_name, setUser_name] = useState("");
@@ -34,7 +36,7 @@ export default function Home() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      const response = await fetch("https://next-travel-backend-vercel.vercel.app/api/v1/admin/login", {
+      const response = await fetch(`${fetchURL}/api/v1/admin/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -36,9 +36,9 @@ export default function HeaderDashboard() {
       <Link href={"#"}>
         <Tooltip title="Logout">
           <Image
-            src={"/logout.png"}
-            height={10}
-            width={50}
+            src={"/logout.svg"}
+            height={60}
+            width={40}
             style={{ cursor: "pointer" }}
             // onClick={()=>{router.push('/login')}}
           ></Image>

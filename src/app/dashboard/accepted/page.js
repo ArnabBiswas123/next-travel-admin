@@ -14,7 +14,8 @@ import { useRouter } from "next/navigation";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import ViewModal from "@/components/ViewModal";
-
+// const fetchURL = "http://localhost:5000";
+const fetchURL='https://next-travel-backend-vercel.vercel.app'
 export default function page() {
   const [userdata, setUserdata] = useState([]);
   const router = useRouter();
@@ -29,14 +30,11 @@ export default function page() {
 
   const fetchData = async (token) => {
     try {
-      const result = await fetch(
-        "https://next-travel-backend-vercel.vercel.app/api/v1/admin/acceptedsupplier",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const result = await fetch(`${fetchURL}/api/v1/admin/acceptedsupplier`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const json = await result.json();
 
       //   console.log(json);
@@ -69,19 +67,16 @@ export default function page() {
     }
 
     if (window.confirm("Are you sure you want to reject this supplier?")) {
-      const response = await fetch(
-        "https://next-travel-backend-vercel.vercel.app/api/v1/admin/rejectsupplier",
-        {
-          method: "put",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            supplierID: id,
-          }),
-        }
-      );
+      const response = await fetch(`${fetchURL}/api/v1/admin/rejectsupplier`, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          supplierID: id,
+        }),
+      });
       const data = await response.json();
       if (data.success === true) {
         setSuccessMsg("The Supplier is rejected successfully");
@@ -136,7 +131,7 @@ export default function page() {
       >
         <Alert severity="success">{successmsg}</Alert>
       </Snackbar>
-      <TableContainer component={Paper} sx={{ my: 6 }}>
+      <TableContainer component={Paper}>
         <div className=" text-black font-home font-semibold underline text-2xl my-2 flex justify-center">
           Accepted Suppliers
         </div>
@@ -201,7 +196,7 @@ export default function page() {
                           }}
                         >
                           <Image
-                            src={"/eye1.png"}
+                            src={"/view.svg"}
                             width={30}
                             height={10}
                             onClick={handleOpenModal}
@@ -219,7 +214,7 @@ export default function page() {
                           }}
                         >
                           <Image
-                            src={"/reject.png"}
+                            src={"/reject.svg"}
                             width={30}
                             height={10}
                             style={{ display: "inline-block" }}
@@ -232,7 +227,7 @@ export default function page() {
                           }}
                         >
                           <Image
-                            src={"/trash.png"}
+                            src={"/delete.svg"}
                             width={30}
                             height={10}
                             style={{ display: "inline-block" }}
@@ -246,6 +241,7 @@ export default function page() {
           </TableBody>
         </Table>
       </TableContainer>
+      {/* </section> */}
     </>
   );
 }

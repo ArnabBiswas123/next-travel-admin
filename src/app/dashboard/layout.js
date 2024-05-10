@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div
+        {/* <div
           style={{
             backgroundImage: "url('/dashboardimg.jpg')",
             backgroundSize: "cover",
@@ -19,9 +19,9 @@ export default function RootLayout({ children }) {
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
           }}
-        >
+        > */}
           {children}
-        </div>
+        {/* </div> */}
       </body>
     </html>
   );

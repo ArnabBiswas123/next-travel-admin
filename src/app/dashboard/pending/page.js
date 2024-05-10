@@ -15,7 +15,8 @@ import Alert from "@mui/material/Alert";
 import { useRouter } from "next/navigation";
 
 import ViewModal from "@/components/ViewModal";
-
+// const fetchURL='http://localhost:5000'
+const fetchURL='https://next-travel-backend-vercel.vercel.app'
 export default function page() {
   const [userdata, setUserdata] = useState([]);
   const [errormsg, setErrormsg] = useState("");
@@ -34,7 +35,7 @@ export default function page() {
   const fetchData = async (token) => {
     try {
       const result = await fetch(
-        "https://next-travel-backend-vercel.vercel.app/api/v1/admin/pendingsupplier",
+        `${fetchURL}/api/v1/admin/pendingsupplier`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -86,7 +87,7 @@ export default function page() {
 
     if (window.confirm("Are you sure you want to approve this supplier?")) {
       const response = await fetch(
-        "https://next-travel-backend-vercel.vercel.app/api/v1/admin/approvesupplier",
+        `${fetchURL}/api/v1/admin/approvesupplier`,
         {
           method: "put",
           headers: {
@@ -102,7 +103,7 @@ export default function page() {
       if (data.success === true) {
         setSuccessMsg("The Supplier is approved successfully")
         setOpenApprove(true);
-        setFetchAgain((prev) => {
+        setFetchAgain((prev) => {  
           !prev;
         });
       } else {
@@ -126,7 +127,7 @@ export default function page() {
 
     if (window.confirm("Are you sure you want to reject this supplier?")) {
       const response = await fetch(
-        "https://next-travel-backend-vercel.vercel.app/api/v1/admin/rejectsupplier",
+        `${fetchURL}/api/v1/admin/rejectsupplier`,
         {
           method: "put",
           headers: {
@@ -161,6 +162,7 @@ export default function page() {
   return (
     <>
       <HeaderDashboard></HeaderDashboard>
+ 
       <Snackbar
         open={open}
         autoHideDuration={5000}
@@ -179,7 +181,7 @@ export default function page() {
       >
         <Alert severity="success">{successmsg}</Alert>
       </Snackbar>
-      <TableContainer component={Paper} sx={{ my: 6 }}>
+      <TableContainer component={Paper} >
         <div className=" text-black font-home font-semibold underline text-2xl my-2 flex justify-center">
           Pending Suppliers
         </div>
@@ -238,7 +240,7 @@ export default function page() {
                         }}
                       >
                         <Image
-                          src={"/eye1.png"}
+                          src={"/view.svg"}
                           width={30}
                           height={10}
                           style={{ display: "inline-block" }}
@@ -254,7 +256,7 @@ export default function page() {
                         }}
                       >
                         <Image
-                          src={"/approve1.png"}
+                          src={"/approve.svg"}
                           width={30}
                           height={10}
                           style={{ display: "inline-block" }}
@@ -270,7 +272,7 @@ export default function page() {
                         }}
                       >
                         <Image
-                          src={"/reject.png"}
+                          src={"/reject.svg"}
                           width={30}
                           height={10}
                           style={{ display: "inline-block" }}
@@ -283,7 +285,7 @@ export default function page() {
                         }}
                       >
                         <Image
-                          src={"/trash.png"}
+                          src={"/delete.svg"}
                           width={30}
                           height={10}
                           style={{ display: "inline-block" }}
@@ -297,7 +299,7 @@ export default function page() {
           </TableBody>
         </Table>
       </TableContainer>
-    
+   
     </>
   );
 }

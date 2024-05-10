@@ -1,7 +1,7 @@
 "use client"
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+
 import Modal from '@mui/material/Modal';
 
 const style = {
@@ -20,13 +20,11 @@ const style = {
 };
 
 export default function ViewModal({openModal, onCloseModal, items}) {
-//   const [open, setOpen] = React.useState(false);
-//   const handleOpen = () => setOpen(true);
-//   const handleClose = () => setOpen(false);
+
 
   return (
     <div>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
+
       <Modal
         open={openModal}
         onClose={()=>{onCloseModal()}}

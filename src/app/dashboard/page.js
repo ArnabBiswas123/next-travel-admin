@@ -4,7 +4,8 @@ import HeaderDashboard from "@/components/HeaderDashboard";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Cards from "@/components/Cards";
-
+// const fetchURL='http://localhost:5000'
+const fetchURL='https://next-travel-backend-vercel.vercel.app'
 export default function page() {
   const [userdata, setUserdata] = useState("");
   const router = useRouter();
@@ -20,10 +21,14 @@ export default function page() {
     router.push("/dashboard/rejected");
   };
 
+  const handleClickTours=()=>{
+    router.push('/dashboard/tours')
+  }
+
   const fetchData = async (token) => {
     try {
       const result = await fetch(
-        "https://next-travel-backend-vercel.vercel.app/api/v1/admin/getadmin",
+        `${fetchURL}/api/v1/admin/getadmin`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -55,8 +60,18 @@ export default function page() {
   return (
     <>
       <HeaderDashboard></HeaderDashboard>
+      <section
+         className=" pt-5"
+          style={{
+            backgroundImage: "url('/beluns.jpg')",
+            backgroundSize: "cover",
+            height: "100vh",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
       <div
-        className=" mx-auto my-10 flex justify-center gap-6"
+        className=" mx-auto my-10 flex justify-center gap-6 flex-wrap"
         style={{
           width: "80%",
         }}
@@ -76,7 +91,14 @@ export default function page() {
           para={"The rejected suppliers"}
           onclick={handleClickRejected}
         ></Cards>
+        <Cards
+          name={"Tours"}
+          para={"Tours customization"}
+          onclick={handleClickTours}
+        ></Cards>
+        
       </div>
+      </section>
     </>
   );
 }
